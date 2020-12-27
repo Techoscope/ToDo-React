@@ -1,25 +1,37 @@
+import React from 'react';
 import Button from './Button';
 
-function randomNumber() {
-  return Math.floor(Math.random() * 255) + 1;
-}
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      color: 'rgb(0,0,0)'
+    }
+    this.buttonClicked = this.buttonClicked.bind(this);
+  }
 
-function buttonClicked() {
-  const redColor = randomNumber();
-  const greenColor = randomNumber();
-  const blueColor = randomNumber();
-  const rgbCode = `rgb(${redColor},${greenColor},${blueColor})`;
-  document.getElementById('header').style.color = rgbCode;
-  document.getElementById('header').innerText = rgbCode;
-}
+  randomNumber() {
+    return Math.floor(Math.random() * 255) + 1;
+  }
+  
+  buttonClicked() {
+    const redColor = this.randomNumber();
+    const greenColor = this.randomNumber();
+    const blueColor = this.randomNumber();
+    const rgbCode = `rgb(${redColor},${greenColor},${blueColor})`;
+    // document.getElementById('header').style.color = rgbCode;
+    // document.getElementById('header').innerText = rgbCode;
+    this.setState({color: rgbCode});
+  }
 
-function App (props) {
-  return (
-    <div>
-      <h1 id='header'>{props.appName}</h1>
-      <Button title="Click me!" onClick={buttonClicked}/>
-    </div>
-  );
+  render() {
+    return (
+      <div>
+        <h1 id='header' style={{color: this.state.color}}>{this.state.color}</h1>
+        <Button title="Click me!" onClick={this.buttonClicked}/>
+      </div>
+    );
+  }
 }
 
 export default App;
