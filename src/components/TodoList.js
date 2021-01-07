@@ -5,18 +5,7 @@ class TodoList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tasks: [
-        {
-          title: 'Get a shoping cart',
-          completed: false,
-          id: 123456789
-        },
-        {
-          title: 'Buy Milk',
-          completed: false,
-          id: 234567890
-        }
-      ],
+      tasks: [],
       newTask: ''
     }
     this.handleInput = this.handleInput.bind(this);
@@ -53,6 +42,12 @@ class TodoList extends React.Component {
     } else {
       alert('Please enter a value')
     }
+  }
+
+  componentDidMount() {
+    fetch('http://localhost:8080/api/todoitems')
+    .then((response) => response.json())
+    .then((json) => this.setState({tasks: json}));
   }
 
   render() {
