@@ -10,6 +10,7 @@ class TodoList extends React.Component {
     }
     this.handleInput = this.handleInput.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.removeItem = this. removeItem.bind(this);
   }
 
   handleInput(e) {
@@ -44,6 +45,15 @@ class TodoList extends React.Component {
     }
   }
 
+  removeItem(id) {
+    const filteredTasks = this.state.tasks.filter(task => {
+      return task.id !== id;
+    })
+    this.setState({
+      tasks: filteredTasks
+    })
+  }
+
   componentDidMount() {
     fetch('http://localhost:8080/api/todoitems')
     .then((response) => response.json())
@@ -51,6 +61,7 @@ class TodoList extends React.Component {
   }
 
   render() {
+    console.log(this.state.tasks)
     return (
       <div>
         <form>
@@ -58,7 +69,7 @@ class TodoList extends React.Component {
           <button type="button" onClick={this.handleClick}>Add</button>
         </form>
         <ul>
-          <TodoItems tasks={this.state.tasks} foo="bar"/>
+          <TodoItems tasks={this.state.tasks} foo="bar" removeItem={this.removeItem}/>
         </ul>
       </div>
     )

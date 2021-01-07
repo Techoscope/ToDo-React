@@ -1,9 +1,14 @@
 function TodoItems (props) {
+
+  function handleRemove(e) {
+    props.removeItem(e.target.id)
+  }
+
   return props.tasks.map(item => {
     return (
-      <li>
+      <li key={item.id} >
         {item.title} &nbsp;
-        <span className="remove-item">(Remove)</span>
+        <span id={item.id} className="remove-item" onClick={handleRemove}>(Remove)</span>
       </li>
     )
   });
