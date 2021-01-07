@@ -38,10 +38,15 @@ class TodoList extends React.Component {
         id: Date.now()
       }
       // Concatenate new task object to the previous tasks in the state
-      this.setState(prevState => {
-        return {
-          tasks: prevState.tasks.concat(newItem)
-        }
+      // this.setState(prevState => {
+      //   return {
+      //     tasks: prevState.tasks.concat(newItem)
+      //   }
+      // })
+      // Another concatenating method you might fiind easier
+      const newTasks = [...this.state.tasks, newItem] 
+      this.setState({
+        tasks: newTasks
       })
       // Empty the newTask property in the state
       this.state.newTask = "";
