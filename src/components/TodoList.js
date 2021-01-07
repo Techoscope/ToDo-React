@@ -20,23 +20,23 @@ class TodoList extends React.Component {
 
   handleClick(e) {
     if(this.state.newTask.trim()){
-      // Create a new task object
-      let newItem = {
-        title: this.state.newTask,
-        completed: false,
-        id: Date.now()
-      }
-      // Concatenate new task object to the previous tasks in the state
-      // this.setState(prevState => {
-      //   return {
-      //     tasks: prevState.tasks.concat(newItem)
-      //   }
-      // })
-      // Another concatenating method you might fiind easier
-      const newTasks = [...this.state.tasks, newItem] 
-      this.setState({
-        tasks: newTasks
+
+      fetch('http://localhost:8080/api/todoitems', {
+        method: 'POST',
+        body: JSON.stringify({
+          title: this.state.newTask
+        }),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
       })
+        .then((response) => response.json())
+        .then((json) => {
+          const newTasks = [...this.state.tasks, json] 
+          this.setState({
+            tasks: newTasks
+          })
+        });
       // Empty the newTask property in the state
       this.state.newTask = "";
     } else {
