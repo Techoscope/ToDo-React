@@ -48,12 +48,16 @@ class TodoList extends React.Component {
   }
 
   removeItem(id) {
-    const filteredTasks = this.state.tasks.filter(task => {
-      return task.id !== id;
-    })
-    this.setState({
-      tasks: filteredTasks
-    })
+    fetch('http://localhost:8080/api/todoitems/' + id, {
+      method: 'DELETE',
+    }).then(() => {
+      const filteredTasks = this.state.tasks.filter(task => {
+        return task.id !== id;
+      })
+      this.setState({
+        tasks: filteredTasks
+      })
+    });
   }
 
   componentDidMount() {
