@@ -10,7 +10,7 @@ class TodoList extends React.Component {
     }
     this.handleInput = this.handleInput.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    this.removeItem = this. removeItem.bind(this);
+    this.removeItem = this.removeItem.bind(this);
   }
 
   handleInput(e) {
@@ -39,7 +39,9 @@ class TodoList extends React.Component {
           })
         });
       // Empty the newTask property in the state
-      this.state.newTask = "";
+      this.setState({
+        newTask: ''
+      })
     } else {
       alert('Please enter a value')
     }
